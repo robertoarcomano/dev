@@ -6,7 +6,7 @@ function App() {
   const [message, setMessage] = useState('')
 
   const handleClick = async () => {
-    const res = await fetch('http://localhost:3200/')
+    const res = await fetch('${API_URL}/')
     const data = await res.json()
     setMessage(data.message)
   }
