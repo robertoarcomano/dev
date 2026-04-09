@@ -12,7 +12,7 @@ function App() {
     const res = await fetch(API_URL)
     const data = await res.json()
     setMessage(data.message)
-    
+
     const res1 = await fetch(API1_URL)
     const data1 = await res1.json()
     setMessage1(data1.message)
@@ -21,7 +21,7 @@ function App() {
   return (
     <>
       <Button variant="contained" onClick={handleClick}>Click</Button>
-      {message && <p>{message} {message1}</p>}
+      {message && <p>{message} - {message1}</p>}
     </>
   )
 }
