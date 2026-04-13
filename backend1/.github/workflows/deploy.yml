@@ -1,0 +1,48 @@
+name: Deploy via SSH
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout (opzionale)
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy
+        run: |
+          ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+            cd /path/del/tuo/progetto
+
+            git fetch origin master
+            git reset --hard origin/master
+
+            # frontend
+            npm --prefix frontend install
+            npm --prefix frontend run build
+
+            # backend
+            python -m venv backend/.venv
+            source backend/.venv/bin/activate
+            pip install -r backend/requirements.txt
+
+            # backend1
+            python -m venv backend1/.venv
+            source backend1/.venv/bin/activate
+            pip install -r backend1/requirements.txt
+
+            # restart
+            sudo systemctl restart dev
+            sudo systemctl restart dev1
+          EOF
