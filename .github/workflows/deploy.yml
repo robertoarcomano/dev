@@ -24,7 +24,7 @@ jobs:
         run: |
           ssh ${{ vars.SSH_USER }}@${{ vars.SSH_HOST }} << 'EOF'
             set -e
-            cd /src/www/dev
+            cd /srv/www/dev
 
             git fetch origin master
             git reset --hard origin/master
