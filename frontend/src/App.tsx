@@ -21,7 +21,7 @@ function App() {
   return (
     <>
       <Button variant="contained" onClick={handleClick}>Click</Button>
-      {message && <p>message: {message} -- message1: {message1}</p>}
+      {message && <p>message: {message} --- message1: {message1}</p>}
     </>
   )
 }
