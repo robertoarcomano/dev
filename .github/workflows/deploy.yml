@@ -23,7 +23,7 @@ jobs:
       - name: Deploy
         run: |
           ssh ${{ vars.SSH_USER }}@${{ vars.SSH_HOST }} -n << 'EOF'
-            set -e
+            set -ex
             cd /srv/www/dev
             id
             git fetch origin master
