@@ -1,0 +1,17 @@
+name: Sync DB
+
+on:
+  workflow_dispatch: # manual trigger
+
+jobs:
+  sync-db:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Dump production DB
+        run: |
+          echo "ssh deploy@prod \"mysqldump db_name\" > dump.sql"
+
+      - name: Import into staging
+        run: |
+          echo "ssh deploy@staging \"mysql db_name\" < dump.sql"
