@@ -6,4 +6,4 @@ app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], all
 
 @app.get("/")
 def home():
-    return {"message": "Hello World FastAPI!"}
+    return {"message": "backend dev"}

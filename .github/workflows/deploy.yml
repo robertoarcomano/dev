@@ -22,10 +22,12 @@ jobs:
 
       - name: Deploy
         run: |
-          ssh ${{ vars.SSH_USER }}@${{ vars.SSH_HOST }} -n << 'EOF'
+          ssh ${{ vars.SSH_USER }}@${{ vars.SSH_HOST }} << 'EOF'
             set -ex
+            export NVM_DIR="$HOME/.nvm"
+            . "$NVM_DIR/nvm.sh" >/dev/null 2>&1
+
             cd /srv/www/dev
-            id
             git fetch origin master
             git reset --hard origin/master
 
